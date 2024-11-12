@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Machinery Partner Email Signature Generator</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        display: flex;
+        gap: 40px;
+      }
+
+      .form-container {
+        flex: 1;
+      }
+
+      .preview-container {
+        flex: 2;
+      }
+
+      .form-group {
+        margin-bottom: 15px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+
+      input {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+
+      button {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 20px;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+
+      #preview {
+        border: 1px solid #ddd;
+        padding: 20px;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="form-container">
+      <h2>Signature Generator</h2>
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input type="text" id="firstName" oninput="updateSignature()" />
+      </div>
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input type="text" id="lastName" oninput="updateSignature()" />
+      </div>
+      <div class="form-group">
+        <label for="jobTitle">Job Title</label>
+        <input type="text" id="jobTitle" oninput="updateSignature()" />
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone Number (Optional)</label>
+        <input type="text" id="phone" oninput="updateSignature()" />
+      </div>
+      <div class="form-group">
+        <label for="mobile">Mobile Number (Optional)</label>
+        <input type="text" id="mobile" oninput="updateSignature()" />
+      </div>
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" oninput="updateSignature()" />
+      </div>
+      <div class="form-group">
+        <label for="linkedin">LinkedIn URL (Optional)</label>
+        <input type="url" id="linkedin" oninput="updateSignature()" />
+      </div>
+      <div class="form-group">
+        <label for="profilePic">Profile Picture URL</label>
+        <input type="url" id="profilePic" oninput="updateSignature()" />
+      </div>
+      <div class="button-group">
+        <button onclick="copySignature()">Copy Signature</button>
+        <button onclick="copySourceCode()">Copy Source Code</button>
+      </div>
+    </div>
+
+    <div class="preview-container">
+      <h2>Preview</h2>
+      <div id="preview"></div>
+    </div>
+
+    <script>
+      function updateSignature() {
+        const firstName = document.getElementById("firstName").value || "Fname";
+        const lastName = document.getElementById("lastName").value || "Lname";
+        const jobTitle =
+          document.getElementById("jobTitle").value || "Job title";
+        const phone = document.getElementById("phone").value;
+        const mobile = document.getElementById("mobile").value;
+        const email =
+          document.getElementById("email").value || "name@machinerypartner.com";
+        const linkedin = document.getElementById("linkedin").value;
+        const profilePic =
+          document.getElementById("profilePic").value ||
+          "https://www.machinerypartner.com/_next/image?url=%2Fassets%2Fteam%2Fclement-cazalot.webp&w=256&q=75&dpl=dpl_EXP29QD55SsZJoGdhtu9wnis9na2";
+
+        // Create phone number display string based on available numbers
+        let phoneDisplay = "";
+        if (phone && mobile) {
+          phoneDisplay = `<a href="tel:${phone}" color="#171717" font-size="medium" class="contact-info__ExternalLink-sc-mmkjr6-2 djHrwm" style="text-decoration: none; color: rgb(23, 23, 23); font-size: 14px;"><span>${phone}</span></a> | <a href="tel:${mobile}" color="#171717" font-size="medium" class="contact-info__ExternalLink-sc-mmkjr6-2 djHrwm" style="text-decoration: none; color: rgb(23, 23, 23); font-size: 14px;"><span>${mobile}</span></a>`;
+        } else if (phone) {
+          phoneDisplay = `<a href="tel:${phone}" color="#171717" font-size="medium" class="contact-info__ExternalLink-sc-mmkjr6-2 djHrwm" style="text-decoration: none; color: rgb(23, 23, 23); font-size: 14px;"><span>${phone}</span></a>`;
+        } else if (mobile) {
+          phoneDisplay = `<a href="tel:${mobile}" color="#171717" font-size="medium" class="contact-info__ExternalLink-sc-mmkjr6-2 djHrwm" style="text-decoration: none; color: rgb(23, 23, 23); font-size: 14px;"><span>${mobile}</span></a>`;
+        }
+
+        // Phone row HTML - only show if there's a phone number
+        const phoneRowHtml = phoneDisplay
+          ? `
+                <tr height="25" style="vertical-align: middle;">
+                    <td width="30" style="vertical-align: middle;">
+                        <table cellpadding="0" cellspacing="0" border="0" class="table__StyledTable-sc-1avdl6r-0 jKaNHW" style="vertical-align: -webkit-baseline-middle; font-size: medium; font-family: Arial;">
+                            <tbody>
+                                <tr>
+                                    <td style="vertical-align: bottom;">
+                                        <span color="#D4D4D4" width="11" class="contact-info__IconWrapper-sc-mmkjr6-1 KxJwQ" style="display: inline-block; background-color: rgb(212, 212, 212);">
+                                            <img src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/phone-icon-2x.png" color="#D4D4D4" alt="mobilePhone" width="13" class="contact-info__ContactLabelIcon-sc-mmkjr6-0 bOaORQ" style="display: block; background-color: rgb(212, 212, 212);">
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td style="padding: 0px; color: rgb(23, 23, 23);">${phoneDisplay}</td>
+                </tr>
+            `
+          : "";
+
+        // LinkedIn row HTML - only show if there's a LinkedIn URL
+        const linkedinHtml = linkedin
+          ? `
+                <td>
+                    <a href="${linkedin}" color="#171717" class="social-links__LinkAnchor-sc-py8uhj-2 jQPMbH" style="display: inline-block; padding: 0px; background-color: rgb(23, 23, 23);">
+                        <img src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/linkedin-icon-2x.png" alt="linkedin" color="#171717" width="24" class="social-links__LinkImage-sc-py8uhj-1 cnQsdS" style="background-color: rgb(23, 23, 23); max-width: 135px; display: block;">
+                    </a>
+                </td>
+                <td width="5"><div></div></td>
+            `
+          : "";
+
+        const signature = `
+            <table cellpadding="0" cellspacing="0" border="0" class="table__StyledTable-sc-1avdl6r-0 jKaNHW" style="vertical-align: -webkit-baseline-middle; font-size: medium; font-family: Arial;">
+                <tbody>
+                    <tr>
+                        <td>
+                            <table cellpadding="0" cellspacing="0" border="0" class="table__StyledTable-sc-1avdl6r-0 jKaNHW" style="vertical-align: -webkit-baseline-middle; font-size: medium; font-family: Arial;">
+                                <tbody>
+                                    <tr>
+                                        <td width="150" style="vertical-align: middle;">
+                                            <span class="template3__ImageContainer-sc-vj949k-0 dVVOvP" style="margin-right: 20px; display: block;">
+                                                <img src="${profilePic}" role="presentation" width="130" class="image__StyledImage-sc-hupvqm-0 iQUdAH" style="max-width: 130px;">
+                                            </span>
+                                        </td>
+                                        <td style="vertical-align: middle;">
+                                            <h2 color="#171717" class="name__NameContainer-sc-1m457h3-0 fDJBkJ" style="margin: 0px; font-size: 18px; color: rgb(23, 23, 23); font-weight: 600;">
+                                                <span>${firstName}</span><span>&nbsp;</span><span>${lastName}</span>
+                                            </h2>
+                                            <p color="#171717" font-size="medium" class="job-title__Container-sc-1hmtp73-0 eVBSPG" style="margin: 0px; color: rgb(23, 23, 23); font-size: 14px; line-height: 22px;">
+                                                <span>${jobTitle}</span>
+                                            </p>
+                                            <p color="#171717" font-size="medium" class="company-details__CompanyContainer-sc-j5pyy8-0 kPrOBw" style="margin: 8px 0 0 0; font-weight: 700; color: rgb(23, 23, 23); font-size: 14px; line-height: 22px;">
+                                                <span>Machinery Partner</span>
+                                            </p>
+                                            <p color="#171717" font-size="medium" class="custom-field__CustomFieldContainer-sc-190n2f-0 gMNkQD" style="color: rgb(23, 23, 23); margin: 0px; font-size: 14px; line-height: 22px;">
+                                                <span>We work hard to find you the right equipment</span>
+                                            </p>
+                                        </td>
+                                        <td width="30"><div style="width: 30px;"></div></td>
+                                        <td color="#D4D4D4" direction="vertical" width="1" height="auto" class="color-divider__Divider-sc-1h38qjv-0 jmHABg" style="width: 1px; border-bottom: none; border-left: 1px solid rgb(212, 212, 212);"></td>
+                                        <td width="30"><div style="width: 30px;"></div></td>
+                                        <td style="vertical-align: middle;">
+                                            <table cellpadding="0" cellspacing="0" border="0" class="table__StyledTable-sc-1avdl6r-0 jKaNHW" style="vertical-align: -webkit-baseline-middle; font-size: medium; font-family: Arial;">
+                                                <tbody>
+                                                    ${phoneRowHtml}
+                                                    <tr height="25" style="vertical-align: middle;">
+                                                        <td width="30" style="vertical-align: middle;">
+                                                            <table cellpadding="0" cellspacing="0" border="0" class="table__StyledTable-sc-1avdl6r-0 jKaNHW" style="vertical-align: -webkit-baseline-middle; font-size: medium; font-family: Arial;">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td style="vertical-align: bottom;">
+                                                                            <span color="#D4D4D4" width="11" class="contact-info__IconWrapper-sc-mmkjr6-1 KxJwQ" style="display: inline-block; background-color: rgb(212, 212, 212);">
+                                                                                <img src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/email-icon-2x.png" color="#D4D4D4" alt="emailAddress" width="13" class="contact-info__ContactLabelIcon-sc-mmkjr6-0 bOaORQ" style="display: block; background-color: rgb(212, 212, 212);">
+                                                                            </span>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                        <td style="padding: 0px;">
+                                                            <a href="mailto:${email}" color="#171717" font-size="medium" class="contact-info__ExternalLink-sc-mmkjr6-2 djHrwm" style="text-decoration: none; color: rgb(23, 23, 23); font-size: 14px;">
+                                                                <span>${email}</span>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr height="25" style="vertical-align: middle;">
+                                                        <td width="30" style="vertical-align: middle;">
+                                                            <table cellpadding="0" cellspacing="0" border="0" class="table__StyledTable-sc-1avdl6r-0 jKaNHW" style="vertical-align: -webkit-baseline-middle; font-size: medium; font-family: Arial;">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td style="vertical-align: bottom;">
+                                                                            <span color="#D4D4D4" width="11" class="contact-info__IconWrapper-sc-mmkjr6-1 KxJwQ" style="display: inline-block; background-color: rgb(212, 212, 212);">
+                                                                                <img src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/link-icon-2x.png" color="#D4D4D4" alt="website" width="13" class="contact-info__ContactLabelIcon-sc-mmkjr6-0 bOaORQ" style="display: block; background-color: rgb(212, 212, 212);">
+                                                                            </span>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                        <td style="padding: 0px;">
+                                                            <a href="//machinerypartner.com" color="#171717" font-size="medium" class="contact-info__ExternalLink-sc-mmkjr6-2 djHrwm" style="text-decoration: none; color: rgb(23, 23, 23); font-size: 14px;">
+                                                                <span>machinerypartner.com</span>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr height="25" style="vertical-align: middle;">
+                                                        <td width="30" style="vertical-align: middle;">
+                                                            <table cellpadding="0" cellspacing="0" border="0" class="table__StyledTable-sc-1avdl6r-0 jKaNHW" style="vertical-align: -webkit-baseline-middle; font-size: medium; font-family: Arial;">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td style="vertical-align: bottom;">
+                                                                            <span color="#D4D4D4" width="11" class="contact-info__IconWrapper-sc-mmkjr6-1 KxJwQ" style="display: inline-block; background-color: rgb(212, 212, 212);">
+                                                                                <img src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/address-icon-2x.png" color="#D4D4D4" alt="address" width="13" class="contact-info__ContactLabelIcon-sc-mmkjr6-0 bOaORQ" style="display: block; background-color: rgb(212, 212, 212);">
+                                                                            </span>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                        <td style="padding: 0px;">
+                                                            <span color="#171717" font-size="medium" class="contact-info__Address-sc-mmkjr6-3 kENIhs" style="font-size: 14px; color: rgb(23, 23, 23);">
+                                                                <span>131 Dartmouth St., 3rd Floor, Boston, MA 02116</span>
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table cellpadding="0" cellspacing="0" border="0" class="table__StyledTable-sc-1avdl6r-0 jKaNHW" style="width: 100%; vertical-align: -webkit-baseline-middle; font-size: medium; font-family: Arial;">
+                                <tbody>
+                                    <tr><td height="30"></td></tr>
+                                    <tr>
+                                        <td color="#D4D4D4" direction="horizontal" width="auto" height="1" class="color-divider__Divider-sc-1h38qjv-0 jmHABg" style="width: 100%; border-bottom: 1px solid rgb(212, 212, 212); border-left: none; display: block;"></td>
+                                    </tr>
+                                    <tr><td height="30"></td></tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table cellpadding="0" cellspacing="0" border="0" class="table__StyledTable-sc-1avdl6r-0 jKaNHW" style="width: 100%; vertical-align: -webkit-baseline-middle; font-size: medium; font-family: Arial;">
+                                <tbody>
+                                    <tr>
+                                        <td style="vertical-align: top;">
+                                            <img src="https://cdn.prod.website-files.com/65c67cbbc15b1ca481694ad1/65c67cbbc15b1ca481694cc1_MP%20logo%20full%20black%20(1).png" role="presentation" width="130" class="image__StyledImage-sc-hupvqm-0 iQUdAH" style="display: inline-block; max-width: 130px;">
+                                        </td>
+                                        <td style="text-align: right; vertical-align: top;">
+                                            <table cellpadding="0" cellspacing="0" border="0" class="table__StyledTable-sc-1avdl6r-0 jKaNHW" style="display: inline-block; vertical-align: -webkit-baseline-middle; font-size: medium; font-family: Arial;">
+                                                <tbody>
+                                                    <tr style="text-align: right;">
+                                                        ${linkedinHtml}
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>`;
+
+        document.getElementById("preview").innerHTML = signature;
+      }
+
+      function copySignature() {
+        // Get the preview element
+        const preview = document.getElementById("preview");
+
+        // Create a range and selection
+        const range = document.createRange();
+        const selection = window.getSelection();
+
+        // Select the content
+        range.selectNodeContents(preview);
+        selection.removeAllRanges();
+        selection.addRange(range);
+
+        try {
+          // Execute copy command
+          const successful = document.execCommand("copy");
+          if (successful) {
+            alert("Signature copied to clipboard!");
+          } else {
+            alert("Failed to copy signature. Please try again.");
+          }
+        } catch (err) {
+          console.error("Failed to copy signature: ", err);
+          alert("Failed to copy signature. Please try again.");
+        } finally {
+          // Clear the selection
+          selection.removeAllRanges();
+        }
+      }
+
+      function copySourceCode() {
+        const signatureHtml = document.getElementById("preview").innerHTML;
+
+        // Create a temporary textarea element
+        const textarea = document.createElement("textarea");
+        textarea.value = signatureHtml;
+        document.body.appendChild(textarea);
+
+        // Select and copy the text
+        textarea.select();
+        try {
+          document.execCommand("copy");
+          alert("Source code copied to clipboard!");
+        } catch (err) {
+          console.error("Failed to copy source code: ", err);
+          alert("Failed to copy source code. Please try again.");
+        } finally {
+          // Remove the temporary textarea
+          document.body.removeChild(textarea);
+        }
+      }
+
+      // Initial update
+      updateSignature();
+    </script>
+  </body>
+</html>
