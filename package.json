@@ -1,0 +1,11 @@
+{
+  "name": "email-signature-generator",
+  "version": "1.0.0",
+  "description": "Machinery Partner Email Signature Generator",
+  "scripts": {
+    "start": "serve"
+  },
+  "dependencies": {
+    "serve": "^14.2.1"
+  }
+}
